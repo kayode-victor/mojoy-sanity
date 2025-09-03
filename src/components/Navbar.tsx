@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/blacklogo.png";
-import { FaFacebookF, FaX, FaInstagram } from "react-icons/fa6";
+import { FaFacebookF, FaX, FaInstagram, FaTiktok } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { HiMenuAlt2 } from "react-icons/hi";
 import Search from "./Search";
@@ -56,6 +56,11 @@ const Navbar = () => {
               <FaFacebookF />
             </Link>
           </li>
+          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
+  <Link href="https://www.tiktok.com/@mojoy_icl?_t=ZS-8zQ2eDNlRgO&_r=1">
+    <FaTiktok />
+  </Link>
+</li>
           <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
             <Link href="https://twitter.com/mojoyICL">
               <FaX />
