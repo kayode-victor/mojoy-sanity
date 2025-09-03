@@ -51,7 +51,7 @@ const newDellQuery = groq`*[_type == 'product' && brand->title =='dell' && posit
    
   } | order(_createdAt asc)`;
 
-const HpPage = async () => {
+const DellPage = async () => {
   const banners = await client.fetch(bannerQuery);
   const dellProducts = await client.fetch(dellQuery);
   const newDellProducts = await client.fetch(newDellQuery);
@@ -67,4 +67,4 @@ const HpPage = async () => {
   );
 };
 
-export default HpPage;
+export default DellPage;
