@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Category = ({ categories }: Props) => {
+  console.log(categories)
   return (
     <div className="my-10 lg:my-20">
       <motion.div
