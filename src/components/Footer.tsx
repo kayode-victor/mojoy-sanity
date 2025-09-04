@@ -2,7 +2,7 @@
 import React from "react";
 import whitelogo from "../assets/logowhite.png";
 import Image from "next/image";
-import { FaX, FaInstagram, FaFacebookF } from "react-icons/fa6";
+import { FaX, FaInstagram, FaFacebookF, FaTiktok } from "react-icons/fa6";
 import Link from "next/link";
 
 const phone = [
@@ -30,6 +30,7 @@ const socials = [
   },
   { icon: <FaX />, link: "https://twitter.com/mojoyICL" },
   { icon: <FaInstagram />, link: "https://www.instagram.com/mojoyicl/" },
+  { icon: <FaTiktok />, link: "https://www.tiktok.com/@mojoy_icl?_t=ZS-8zQ2eDNlRgO&_r=1" }, 
 ];
 
 const Footer = () => {
@@ -57,13 +58,13 @@ const Footer = () => {
           <div className="flex flex-col lg:w-1/3 lg:items-start items-center  gap-2">
             <h1 className="text-2xl font-medium">Our Products</h1>
             <div className="flex flex-col gap-2">
-              {productLink.map((link, index) => (
-                <Link key={index} href={link.href}>
-                  <div className="text-white hover:text-yellow-400 text-sm">
-                    {link.title}
-                  </div>
-                </Link>
-              ))}
+           {phone.map((phone, index) => (
+            <Link key={index} href={`tel:${phone.number.replace(/[^+\d]/g, "")}`}>
+              <div className="text-white hover:text-yellow-400 text-sm">
+               {phone.title}
+             </div>
+          </Link>
+  ))}
             </div>
           </div>
           {/*contact info*/}
@@ -71,7 +72,7 @@ const Footer = () => {
             <h1 className="text-2xl font-medium">Contact Us</h1>
             <div className="flex flex-col gap-2">
               {phone.map((phone, index) => (
-                <Link key={index} href={phone.number}>
+                <Link key={index} href={`tel:${phone.number.replace(/[^+\d]/g, "")}`}>
                   <div className="text-white hover:text-yellow-400 text-sm">
                     {phone.title}
                   </div>
