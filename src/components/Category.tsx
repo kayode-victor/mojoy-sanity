@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Category = ({ categories }: Props) => {
-  console.log(categories)
   return (
     <div className="my-10 lg:my-20">
       <motion.div
@@ -34,6 +33,7 @@ const Category = ({ categories }: Props) => {
           <div
             key={index}
             className="relative overflow-hidden rounded-md shadow-md cursor-none hover:-translate-y-2 group"
+            onClick={() => console.log(item.id)}
           >
             <Image
               src={urlFor(item?.image).url()} // Assuming the images are in the public/images directory
