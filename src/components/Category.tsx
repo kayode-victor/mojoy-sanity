@@ -3,6 +3,7 @@ import { CategoryProps } from "../../type";
 import { motion } from "framer-motion";
 import { urlFor } from "@/lib/sanityClient";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
   categories: CategoryProps[];
@@ -30,10 +31,11 @@ const Category = ({ categories }: Props) => {
       </motion.div>
       <div className="grid grid-cols-2 md:grid-cols-3 h-[400px] lg:mx-24 mx-4 gap-4 lg:gap-18">
         {categories.map((item, index) => (
-          <div
+          <Link
+          href={`/category/${item._id}`}
             key={index}
-            className="relative overflow-hidden rounded-md shadow-md cursor-none hover:-translate-y-2 group"
-            onClick={() => console.log(item.id)}
+            className="relative overflow-hidden rounded-md shadow-md hover:-translate-y-2 group"
+            
           >
             <Image
               src={urlFor(item?.image).url()} // Assuming the images are in the public/images directory
@@ -47,7 +49,7 @@ const Category = ({ categories }: Props) => {
             <p className="absolute inset-0 flex items-center justify-center text-center text-white font-light text-md lg:text-lg pointer-events-none uppercase">
               {item?.title}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
