@@ -60,7 +60,7 @@ const HpPage = async () => {
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner2 banners={banners} bannerText={"Order your Hp Products here!"} />
       <NewArrival products={newHpProducts} />
-      <AllProduct products={hpProducts} title="Hp" />
+      <AllProduct products={hpProducts} title="HP" />
     </main>
   );
 };

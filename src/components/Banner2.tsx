@@ -2,26 +2,30 @@
 import { urlFor } from "@/lib/sanityClient";
 import Image from "next/image";
 import { useState } from "react";
-import Link from "next/link";
 import Slider from "react-slick";
 
-const Banner2 = ({ banners, bannerText }: any) => {
+type Banner2Props = {
+  banners: { _id: string; image: any }[];
+  bannerText: string;
+};
+
+const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
   const [dotActive, setDocActive] = useState(0);
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    beforeChange: (prev: any, next: any) => {
+    beforeChange: (_prev: any, next: any) => {
       setDocActive(next);
     },
     responsive: [
       {
         breakpoint: 576,
         settings: {
-          dots: false,
+          dots: true,
           appendDots: (dots: any) => (
             <div
               style={{
@@ -64,8 +68,8 @@ const Banner2 = ({ banners, bannerText }: any) => {
   return (
     <div className="bg-red-200 h-[300px] mb-28">
       <Slider {...settings}>
-        {banners?.map((item: any) => (
-          <div className="relative" key={item?._id}>
+        {banners.map((item) => (
+          <div className="relative" key={item._id}>
             <Image
               src={urlFor(item.image).url()}
               alt="banner image"
