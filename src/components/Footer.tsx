@@ -35,38 +35,32 @@ const socials = [
 
 const Footer = () => {
   return (
-    <footer className=" bottom-0 w-full bg-[#070E20] text-white font-poppins">
+    <footer className=" bottom-0 w-full bg-[#1B4351] text-white font-poppins">
       <div className="container mx-auto p-4 lg:px-20 lg:py-14">
         <div className="flex flex-col lg:flex-row lg:gap-10 gap-5">
           {/*Info*/}
-          <div className="flex flex-col lg:w-1/3 lg:items-start items-center justify-center gap-2">
-            <Image src={whitelogo} alt="Logo" className="w-24 lg:w-36" />
-            <p className="text-center hover:text-yellow-400 lg:text-left">
-              13 Oshitelu Street Lagos, Nigeria
-            </p>
-            <div className="flex gap-4">
-              {socials.map((social, index) => (
-                <Link key={index} href={social.link}>
-                  <div className="text-white hover:text-yellow-400 hover:scale-125 transition-transform duration-300 ease-in-out">
-                    {social.icon}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-          {/*Our Products*/}
-          <div className="flex flex-col lg:w-1/3 lg:items-start items-center  gap-2">
-            <h1 className="text-2xl font-medium">Our Products</h1>
-            <div className="flex flex-col gap-2">
-           {phone.map((phone, index) => (
-            <Link key={index} href={`tel:${phone.number.replace(/[^+\d]/g, "")}`}>
-              <div className="text-white hover:text-yellow-400 text-sm">
-               {phone.title}
-             </div>
-          </Link>
-  ))}
-            </div>
-          </div>
+        <div className="flex flex-col lg:w-1/3 lg:items-start items-center justify-center gap-2">
+  <Image src={whitelogo} alt="Logo" className="w-24 lg:w-36" />
+  <a
+    href="https://www.google.com/maps/place/13+Oshitelu+Street,+Lagos,+Nigeria"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <p className="text-center hover:text-yellow-400 lg:text-left cursor-pointer">
+      13 Oshitelu St, Computer Village, Lagos, Nigeria
+    </p>
+  </a>
+  <div className="flex gap-4">
+    {socials.map((social, index) => (
+      <Link key={index} href={social.link}>
+        <div className="text-white hover:text-yellow-400 hover:scale-125 transition-transform duration-300 ease-in-out">
+          {social.icon}
+        </div>
+      </Link>
+    ))}
+  </div>
+</div>
+         
           {/*contact info*/}
           <div className="flex flex-col lg:w-1/3 lg:items-start items-center  gap-2">
             <h1 className="text-2xl font-medium">Contact Us</h1>

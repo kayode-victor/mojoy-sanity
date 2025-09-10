@@ -56,6 +56,7 @@ const HpPage = async () => {
   const banners = await client.fetch(bannerQuery);
   const hpProducts = await client.fetch(hpQuery);
   const newHpProducts = await client.fetch(newHpQuery);
+  
   return (
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner2 banners={banners} bannerText={"Order your Hp Products here!"} />

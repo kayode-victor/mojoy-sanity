@@ -12,6 +12,7 @@ interface Props {
 }
 
 const AllProduct = ({ products, title }: Props) => {
+  console.log(products);
   return (
     <Container className="w-full pb-10">
       <motion.div

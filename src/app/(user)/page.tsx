@@ -121,11 +121,12 @@ const HomePage = async () => {
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner banners={banners} />
       <NewArrival products={newArrivalProducts} />
+      <TopDeal products={topDealProducts} />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
       <Services />
       <Category categories={categories} />
-      <TopDeal products={topDealProducts} />
+      
       <BestSeller products={bestSellerProducts} />
       <Bottombanner />
       <Logos />
