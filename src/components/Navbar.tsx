@@ -45,29 +45,33 @@ const Navbar = () => {
           <li className="border-r-gray-400 px-3 -mr-4 font-semibold">
             Contact us:
           </li>
-          <li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
-            (+234) 802-363-6583
-          </li>
-          <li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
-            mojoyicl@gmail.com
-          </li>
+         <li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
+  <a href="tel:+2348023636583" className="hover:text-blue-500">
+    (+234) 802-363-6583
+  </a>
+</li>
+<li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
+  <a href="mailto:shop@mojoyicl.com" className="hover:text-blue-500">
+    shop@mojoyicl.com
+  </a>
+</li>
           <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://www.facebook.com/mojoyicl/">
+            <Link href="https://www.facebook.com/mojoyitechhub">
               <FaFacebookF />
             </Link>
           </li>
           <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-  <Link href="https://www.tiktok.com/@mojoy_icl?_t=ZS-8zQ2eDNlRgO&_r=1">
-    <FaTiktok />
-  </Link>
-</li>
+            <Link href="https://www.tiktok.com/@mojoytechhub">
+            <FaTiktok />
+           </Link>
+          </li>
           <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://twitter.com/mojoyICL">
+            <Link href="https://twitter.com/mojoytechhub">
               <FaX />
             </Link>
           </li>
           <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://www.instagram.com/mojoyicl/">
+            <Link href="https://www.instagram.com/mojoytechhub/">
               <FaInstagram />
             </Link>
           </li>

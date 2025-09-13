@@ -10,16 +10,16 @@ import Address from "@/assets/address.png";
 const socials = [
   {
     icon: <FaFacebookF />,
-    link: "https://www.facebook.com/mojoyicl/", },
-  { icon: <FaX />, link: "https://twitter.com/mojoyICL" },
-  { icon: <FaInstagram />, link: "https://www.instagram.com/mojoyicl/" },
-  { icon: <FaTiktok />, link: "https://www.tiktok.com/@mojoy_icl?_t=ZS-8zQ2eDNlRgO&_r=1" },
+    link: "https://www.facebook.com/mojoytechhub", },
+  { icon: <FaX />, link: "https://twitter.com/mojoytechhub" },
+  { icon: <FaInstagram />, link: "https://www.instagram.com/mojoytechhub" },
+  { icon: <FaTiktok />, link: "https://www.tiktok.com/@mojoytechhub" },
 ];
 const ContactPage = () => {
   return (
     <Container className="">
-      <div className="flex flex-col lg:flex-row pt-10 justify-center items-center ">
-        <div className="relative w-full h-[300px]">
+      <div className="flex flex-col lg:flex-row pt-15 justify-center items-center ">
+        <div className="relative w-full h-[400px]">
           <Image 
               src={Address}
               alt='hell'
@@ -68,10 +68,10 @@ const ContactPage = () => {
 <div className="flex mb-6 gap-4 items-center justify-center">
   <AiFillMail className="text-xl" />
   <a
-    href="mailto:mojoyici@gmail.com"
+    href="mailto:shop@mojoyicl.com"
     className="text-md text-gray-700 hover:text-blue-500 transition"
   >
-    mojoyici@gmail.com
+     shop@mojoyicl.com
   </a>
 </div>
 
