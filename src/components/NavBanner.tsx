@@ -7,7 +7,7 @@ const NavBanner = () => {
       style={{ backgroundColor: "#1b4351"}}
     >
       <div className="flex justify-between items-center mx-auto max-w-xl md:max-w-2xl w-full px-4 md:px-0 md:py-1 py-5">
-        <i className="text-yellow text-xs md:text-xs font-light uppercase animate-pulse">
+        <i className="text-white text-xs md:text-xs font-light uppercase animate-pulse">
           Tech summer sales <span className="ml-2">-</span>
         </i>
         <p className="text-yellow text-xs md:text-sm">
