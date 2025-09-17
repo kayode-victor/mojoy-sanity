@@ -1,4 +1,4 @@
-"use client";
+"useEffect/React Querry";
 import { CategoryProps } from "../../type";
 import { motion } from "framer-motion";
 import { urlFor } from "@/lib/sanityClient";
