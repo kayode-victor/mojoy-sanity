@@ -46,8 +46,8 @@ const Logos = () => {
             <div key={logo.id} className="mx-5 lg:mx-14">
               <Image
                 src={logo.src}
-                width={150}
-                height={150}
+                width={250}
+                height={250}
                 alt={logo.alt}
                 className="object-contain w-24 h-24 hover:scale-90"
               />
