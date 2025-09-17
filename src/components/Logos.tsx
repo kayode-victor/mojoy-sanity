@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion;
 import Container from "./Container";
 import logo1 from "@/assets/brand-01.png";
 import logo2 from "@/assets/brand-02.png";
@@ -46,10 +46,10 @@ const Logos = () => {
             <div key={logo.id} className="mx-5 lg:mx-14">
               <Image
                 src={logo.src}
-                width={250}
-                height={250}
+                width={200} // increased from 150 to 200
+                height={200} // increased from 150 to 200
                 alt={logo.alt}
-                className="object-contain w-[250px] h-[250px] hover:scale-90"
+                className="object-contain w-[200px] h-[200px] hover:scale-90" // increased from w-24 h-24 (96px) to 200px
               />
             </div>
           ))}
