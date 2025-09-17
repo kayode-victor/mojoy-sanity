@@ -49,7 +49,7 @@ const Logos = () => {
                 width={250}
                 height={250}
                 alt={logo.alt}
-                className="object-contain w-24 h-24 hover:scale-90"
+                className="object-contain w-[250px] h-[250px] hover:scale-90"
               />
             </div>
           ))}
