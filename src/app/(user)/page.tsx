@@ -1,12 +1,12 @@
 import Banner from "@/components/Banner";
 import BestSeller from "@/components/BestSeller";
-import Bottombanner from "@/components/Bottombanner";
+import TopDeal from "@/components/TopDeal";
+//import Bottombanner from "@/components/Bottombanner";
 import Category from "@/components/Category";
 import HomeBanner from "@/components/Homebanner";
 import Logos from "@/components/Logos";
 import NewArrival from "@/components/NewArrival";
 import Services from "@/components/Services";
-import TopDeal from "@/components/TopDeal";
 import { client } from "@/lib/sanityClient";
 import Brand from "@/sanity/schemas/brand";
 import Brands from "@/components/Brands";
