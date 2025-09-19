@@ -14,13 +14,11 @@ export default defineType({
       name: "products",
       title: "Products",
       type: "array",
-      //@ts-ignore
       of: [
-        defineField({
+        {
           type: "reference",
-          //@ts-ignore
           to: [{ type: "product" }],
-        }),
+        },
       ],
     }),
   ],
