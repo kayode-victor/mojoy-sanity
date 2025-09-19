@@ -11,7 +11,7 @@ interface Props {
 
 const Category = ({ categories }: Props) => {
   return (
-    <div className="my-10 lg:my-20">
+    <div className="my-10 lg:my-20 xl:my-20">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{
