@@ -1,8 +1,8 @@
 import Banner from "@/components/Banner";
-import BestSeller from "@/components/BestSeller";
 import TopDeal from "@/components/TopDeal";
-//import Bottombanner from "@/components/Bottombanner";
+import Bottombanner from "@/components/Bottombanner";
 import Category from "@/components/Category";
+import BestSeller from "@/components/BestSeller";
 import HomeBanner from "@/components/Homebanner";
 import Logos from "@/components/Logos";
 import NewArrival from "@/components/NewArrival";
@@ -122,13 +122,12 @@ const HomePage = async () => {
       <Banner banners={banners} />
       <NewArrival products={newArrivalProducts} />
       <TopDeal products={topDealProducts} />
+      <BestSeller products={bestSellerProducts} />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
-      <Services />
       <Category categories={categories} />
-      
-      <BestSeller products={bestSellerProducts} />
       <Bottombanner />
+      <Services />
       <Logos />
     </main>
   );

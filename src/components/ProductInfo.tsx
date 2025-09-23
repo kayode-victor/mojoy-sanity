@@ -75,7 +75,7 @@ const ProudctInfo = ({ product }: Props) => {
         toastOptions={{
           style: {
             background: "#000",
-            color: "#FFEE58",
+            color: "#FFF354",
           },
         }}
       />

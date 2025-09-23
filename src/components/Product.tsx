@@ -139,7 +139,7 @@ const Product = ({ product, bg }: Props) => {
         toastOptions={{
           style: {
             background: "#000",
-            color: "#FFEE58",
+            color: "#FFF354",
           },
         }}
       />

@@ -1,5 +1,3 @@
-"use client";
-
 const NavBanner = () => {
   return (
     <div
@@ -17,7 +15,7 @@ const NavBanner = () => {
           <i className="text-white text-xs py-2 font-light">valid till</i>
            July 28, 2025 
         </p>
-        <button className="hidden md:block text-[#FACA15] text-xs md:text-sm py-2">
+        <button className="hidden md:block text-[#FFF354] text-xs md:text-sm py-2">
           Get Discount
         </button>
       </div>

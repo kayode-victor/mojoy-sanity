@@ -66,7 +66,7 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
     ],
   };
   return (
-    <div className="bg-red-200 h-[300px] mb-28">
+    <div className="bg-red-200 h-[500px] mb-28">
       <Slider {...settings}>
         {banners.map((item) => (
           <div className="relative" key={item._id}>
@@ -75,10 +75,10 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
               alt="banner image"
               width={1500}
               height={1500}
-              className="w-full h-[300px] object-cover md:mb-28"
+              className="w-full h-[500px] object-cover md:mb-28"
             />
             <div
-              className="w-full h-[300px] absolute top-0 flex justify-center items-center"
+              className="w-full h-[500px] absolute top-0 flex justify-center items-center"
               style={{ backgroundColor: "hsla(240, 50.60%, 15.90%, 0.67)" }}
             >
               <div className="flex flex-col gap-5 justify-center items-center">
