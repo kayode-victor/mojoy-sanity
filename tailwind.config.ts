@@ -13,9 +13,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "brand-primary": "#1B4351", // Deep Teal (Mojoy Primary)
+        "brand-accent": "#F4C542", // Golden Yellow (Accent)
+        "brand-light": "#F9FAFB",  // Light Neutral
+        "brand-dark": "#111827",   // Charcoal Dark
+      },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"],
+        brand:  ["Vonique 64", "sans-serif"], // Mojoy official font
+        raleway: ["Raleway", "sans-serif"],
       },
     },
   },

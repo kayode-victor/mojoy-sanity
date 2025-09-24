@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/(user)/auth/signin"
-, "src/components/CategoryClient.txs"  ],
+, "src/components/CategoryClient.tsx"  ],
   "exclude": ["node_modules"]
 }
