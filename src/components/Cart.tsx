@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "./Container";
 import { useDispatch, useSelector } from "react-redux";
 import { StateProps } from "../../type";
@@ -11,16 +11,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Price from "./Price";
-import { signIn, useSession, getProviders } from "next-auth/react";
-import logo from "@/assets/blacklogo.png";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FiTruck } from "react-icons/fi";
 import { GoGift } from "react-icons/go";
 import { GiReturnArrow } from "react-icons/gi";
-import { client } from "@/lib/sanityClient";
 import { PaystackButton } from "react-paystack";
-import { stat } from "fs";
-import { useEffect } from "react";
 import CollapsibleText from "./CollapsibleText";
 import { states, lgas } from "@/data/statesData";
 
@@ -29,14 +25,8 @@ const Cart = () => {
     (state: StateProps) => state.mojoy
   );
   const dispatch = useDispatch();
-  const { data: session, status } = useSession(); // Get session and status
-
-  // Update email state when session is available
-  useEffect(() => {
-    if (status === "authenticated" && session?.user?.email) {
-      setEmail(session?.user.email);
-    }
-  }, [session, status]);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const deliveryTypes = ["Door Delivery", "Pickup"];
 
@@ -51,13 +41,46 @@ const Cart = () => {
   const [address, setAddress] = useState("");
   const [formError, setFormError] = useState("");
 
-  const [vat, setVat] = useState(1500); // VAT amount
-  const [deliveryFee, setDeliveryFee] = useState(0); // Delivery fee
-  const extractedAmount = totalAmount - 5000; // Amount after disc
-  const grandTotal = extractedAmount + deliveryFee + vat; // Grand total
+  const [vat] = useState(1500); // Fixed VAT
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.email) {
+      setEmail(session?.user.email);
+    }
+  }, [session, status]);
+
+  const extractedAmount = totalAmount - 5000; // discount logic
+  const grandTotal = extractedAmount + deliveryFee + vat;
+
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "";
-  const amount = grandTotal * 100; // Paystack expects amount in kobo
-  const router = useRouter();
+  const amount = grandTotal * 100;
+
+  const handleStateChange = (e: any) => {
+    setSelectedState(e.target.value);
+    setSelectedLGA("");
+  };
+
+  // Update delivery fee dynamically
+  useEffect(() => {
+    if (selectedDelivery === "Door Delivery") {
+      if (selectedState === "Lagos") {
+        setDeliveryFee(3500);
+      } else if (selectedState) {
+        setDeliveryFee(0); // show "On Request" in UI
+      }
+    } else {
+      setDeliveryFee(0); // Pickup = free
+    }
+  }, [selectedDelivery, selectedState]);
+
+  const isFormValid =
+    username &&
+    email &&
+    email.includes("@") &&
+    phone &&
+    (selectedDelivery === "Pickup" ||
+      (address && selectedState && selectedLGA && selectedDelivery));
 
   const componentProps = {
     username,
@@ -75,21 +98,9 @@ const Cart = () => {
           variable_name: "phone_number",
           value: phone,
         },
-        {
-          display_name: "Address",
-          variable_name: "address",
-          value: address,
-        },
-        {
-          display_name: "State",
-          variable_name: "state",
-          value: selectedState,
-        },
-        {
-          display_name: "LGA",
-          variable_name: "lga",
-          value: selectedLGA,
-        },
+        { display_name: "Address", variable_name: "address", value: address },
+        { display_name: "State", variable_name: "state", value: selectedState },
+        { display_name: "LGA", variable_name: "lga", value: selectedLGA },
         {
           display_name: "Delivery Type",
           variable_name: "delivery_type",
@@ -105,9 +116,9 @@ const Cart = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            username: username,
+            username,
             userEmail: email,
-            amount: amount,
+            amount,
             state: selectedState,
             lga: selectedLGA,
             deliveryType: selectedDelivery,
@@ -116,9 +127,8 @@ const Cart = () => {
           }),
         });
         const result = await res.json();
-        if (!res.ok) {
-          throw new Error(result.error || "Failed to create order");
-        }
+        if (!res.ok) throw new Error(result.error || "Failed to create order");
+
         setUserName("");
         setEmail("");
         setAddress("");
@@ -135,23 +145,6 @@ const Cart = () => {
     onClose: () => alert("Payment cancelled."),
   };
 
-  const handleStateChange = (e: any) => {
-    setSelectedState(e.target.value);
-    setSelectedLGA(""); // Reset LGA when state changes
-  };
-
-  // Validate form fields
-  const isFormValid =
-    username &&
-    email &&
-    email.includes("@") &&
-    phone &&
-    address &&
-    selectedState &&
-    selectedLGA &&
-    selectedDelivery;
-
-  // Handle form submission
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!isFormValid) {
@@ -170,65 +163,77 @@ const Cart = () => {
     if (confirmed) {
       dispatch(resetCart());
       toast.success("Cart Cleared Successfully!");
-    } else {
-      return null;
     }
   };
 
   return (
-    <Container className="">
+    <Container>
       {productData?.length > 0 ? (
         <div className="pb-20">
-          <div className="w-full py-4 bg-[#f5f7f7] text-md hidden lg:grid grid-cols-6 place-content-center px-4 font-semibold uppercase">
+          {/* Cart Header */}
+          <div className="w-full py-4 bg-brand-light text-md hidden lg:grid grid-cols-6 place-content-center px-4 font-semibold uppercase text-brand-dark rounded-t-xl">
             <h2 className="col-span-2">Product</h2>
             <h2>Price</h2>
             <h2>Quantity</h2>
             <h2>Sub Total</h2>
             <h2>Actions</h2>
           </div>
-          <div className="mt-5">
+
+          {/* Cart Items */}
+          <div className="mt-5 space-y-4">
             {productData.map((item) => (
-              <div key={item?._id}>
+              <div
+                key={item?._id}
+                className="rounded-xl border border-gray-200 shadow-sm"
+              >
                 <CartItem item={item} />
               </div>
             ))}
           </div>
+
+          {/* Reset Cart */}
           <button
             onClick={handleReset}
-            className="py-2 px-3 bg-red-500 text-white text-sm font-sm uppercase mb-4 hover:bg-red-700 duration-300 rounded-md"
+            className="py-2 px-3 bg-red-500 text-white text-sm uppercase mb-4 hover:bg-red-700 duration-300 rounded-md"
           >
             Clear Cart
           </button>
 
-          {/* CHECKOUT */}
-          <div className="flex flex-col md:flex-row mb-4 md:mb-0 justify-center space-y-4 md:space-y-0 space-x-0 md:space-x-4 items-start min-h-screen p-4 bg-[#F6F7F4] rounded-md">
-            <div className="bg-white rounded-lg p-4 w-full max-w-lg border border-gray-300">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="hidden md:flex text-lg font-medium text-gray-800">
+          {/* Checkout */}
+          <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 items-start min-h-screen p-4 bg-brand-light rounded-2xl">
+            {/* Form */}
+            <div className="bg-white rounded-2xl p-6 w-full max-w-lg border border-gray-200 shadow-md">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <h2 className="text-lg font-medium text-gray-800 mb-4">
                   CART CHECKOUT
                 </h2>
-                <div>
-                  <p className="text-md md:text-xs uppercase text-gray-800">
-                    Fill in your details to proceed with the order
-                  </p>
-                </div>
-              </div>
 
-              <hr className="border-t border-gray-300 my-4 shadow-sm -mx-4" />
+                {/* Delivery Type */}
+                <select
+                  id="delivery"
+                  required
+                  value={selectedDelivery}
+                  onChange={(e) => setSelectedDelivery(e.target.value)}
+                  className="block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
+                >
+                  <option value="" disabled>
+                    Select Delivery Type
+                  </option>
+                  {deliveryTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* State Dropdown */}
-                <div className="flex items-center mb-4">
-                  <h2 className="w-1/2 hidden md:block text-sm font-medium text-gray-800 mr-2">
-                    Delivery Details
-                  </h2>
-
-                  <div className="w-full ">
+                {/* Show state/LGA/address if Door Delivery */}
+                {selectedDelivery === "Door Delivery" && (
+                  <>
                     <select
                       id="state"
                       value={selectedState}
                       onChange={handleStateChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
+                      className="block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
                       required
                     >
                       <option value="" disabled>
@@ -240,18 +245,14 @@ const Cart = () => {
                         </option>
                       ))}
                     </select>
-                  </div>
-                </div>
 
-                {/* LGA Dropdown */}
-                <div className="flex items-center justify-end mb-4">
-                  <div className="w-full md:w-[65%]">
                     <select
                       id="lga"
                       value={selectedLGA}
                       onChange={(e) => setSelectedLGA(e.target.value)}
-                      className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
+                      className="block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
                       disabled={!selectedState}
+                      required
                     >
                       <option value="" disabled>
                         Select LGA
@@ -265,248 +266,137 @@ const Cart = () => {
                           )
                         )}
                     </select>
-                  </div>
-                </div>
 
-                {/* Delivery Type Dropdown */}
-                <div className="flex items-center justify-end mb-4">
-                  <div className="w-full md:w-[65%]">
-                    <select
-                      id="delivery"
-                      required
-                      value={selectedDelivery}
-                      onChange={(e) => setSelectedDelivery(e.target.value)}
-                      className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
-                    >
-                      <option value="" disabled>
-                        Select Delivery Type
-                      </option>
-                      {deliveryTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="flex items-center justify-end mb-4">
-                  <div className="w-full md:w-[65%]">
-                    <input
-                      type="username"
-                      value={username}
-                      onChange={(e) => setUserName(e.target.value)}
-                      placeholder="Enter Name..."
-                      className="w-full border border-gray-300 rounded-md p-2 text-sm"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-end mb-4">
-                  <div className="w-full md:w-[65%]">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter Email..."
-                      className="w-full border border-gray-300 rounded-md p-2 text-sm"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Phone Number Input */}
-                <div className="flex items-center justify-end mb-4">
-                  <div className="w-full md:w-[65%]">
-                    <input
-                      id="phone"
-                      type="tel"
-                      value={phone}
-                      required
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Enter phone number..."
-                      className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm sm:text-sm py-2 px-4"
-                    />
-                  </div>
-                </div>
-
-                {/* Delivery Address Input */}
-                <div className="flex items-center justify-end mb-4 ">
-                  <div className="w-full md:w-[65%]">
                     <textarea
                       id="address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      required
                       placeholder="Enter delivery address..."
-                      className="mt-1 block w-full rounded-md border-gray-300 border shadow-sm sm:text-sm py-2 px-4 mb-4"
-                      rows={4}
+                      className="block w-full rounded-md border-gray-300 border shadow-sm text-sm py-2 px-4"
+                      rows={3}
+                      required
                     />
-                  </div>
-                </div>
+                  </>
+                )}
 
-                <hr className="border-t border-gray-300 my-6 shadow-sm" />
+                {/* Common fields */}
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Enter Name..."
+                  className="w-full border border-gray-300 rounded-md p-2 text-sm"
+                  required
+                />
 
-                {/* CART TOTALS */}
-                <div className="w-full flex justify-between pt-3">
-                  <h1 className="text-sm font-medium mt-2 hidden md:block">
-                    Cart Totals
-                  </h1>
-                  <div className="w-full md:w-[75%]">
-                    <p className="flex items-center justify-between  border-gray-300 border shadow-sm border-b-0 py-1.5 text-md px-4 font-medium rounded-t-md ">
-                      Sub Total{" "}
-                      <span>
-                        <Price amount={extractedAmount} />
-                      </span>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Email..."
+                  className="w-full border border-gray-300 rounded-md p-2 text-sm"
+                  required
+                />
+
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Enter Phone..."
+                  className="w-full border border-gray-300 rounded-md p-2 text-sm"
+                  required
+                />
+
+                {/* Totals */}
+                <div className="pt-6">
+                  <h1 className="text-sm font-medium mb-2">Cart Totals</h1>
+                  <div className="w-full rounded-xl overflow-hidden border border-gray-200 shadow">
+                    <p className="flex justify-between border-b py-2 px-4">
+                      Sub Total <Price amount={extractedAmount} />
                     </p>
-                    <p className="flex items-center justify-between border-gray-300 border shadow-sm border-b-0 py-1.5 text-md px-4 font-medium">
-                      Delivery Fees
-                      <div className="flex flex-col items-end">
-                        {selectedState === "Lagos"
-                          ? (() => {
-                              if (deliveryFee !== 3500) setDeliveryFee(3500);
-                              return (
-                                <span className="font-semibold tracking-wide font-titleFont">
-                                  <Price amount={3500} />
-                                </span>
-                              );
-                            })()
-                          : selectedState && states.includes(selectedState)
-                          ? (() => {
-                              if (deliveryFee !== 0) setDeliveryFee(0);
-                              return (
-                                <span className="font-normal tracking-wide font-titleFont">
-                                  On Request
-                                </span>
-                              );
-                            })()
-                          : (() => {
-                              if (deliveryFee !== 0) setDeliveryFee(0);
-                              return (
-                                <span className="font-normal tracking-wide font-titleFont text-gray-400">
-                                  Not Available
-                                </span>
-                              );
-                            })()}
-                      </div>
+                    <p className="flex justify-between border-b py-2 px-4">
+                      Delivery Fees{" "}
+                      {selectedDelivery === "Door Delivery" ? (
+                        selectedState === "Lagos" ? (
+                          <Price amount={3500} />
+                        ) : selectedState ? (
+                          "On Request"
+                        ) : (
+                          "Pending"
+                        )
+                      ) : (
+                        "₦0"
+                      )}
                     </p>
-                    <div className="flex items-center justify-between border-gray-300 border shadow-sm border-b-0 py-1.5 text-md px-4 font-medium">
-                      <div className="flex space-x-3 items-center">
-                        <span>VAT</span>
-                        <span className="bg-[#EDF0EE] rounded-md text-[#070E20] px-2 text-sm">
-                          7.5%
-                        </span>
-                      </div>
-
-                      <div className="flex flex-col items-end">
-                        <span className="font-semibold tracking-wide font-titleFont">
-                          {/*price on state VAT*/}
-                          <Price amount={vat} />
-                        </span>
-                      </div>
-                    </div>
-                    <p className="flex items-center justify-between border-gray-300 border shadow-sm py-1.5 text-md px-4 font-medium rounded-b-md">
-                      Total
-                      <span className="font-bold tracking-wide text-lg font-titleFont">
-                        <Price amount={grandTotal} />
-                      </span>
+                    <p className="flex justify-between border-b py-2 px-4">
+                      VAT (7.5%) <Price amount={vat} />
+                    </p>
+                    <p className="flex justify-between py-2 px-4 font-bold text-lg bg-brand-accent/10">
+                      Total <Price amount={grandTotal} />
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-start w-[50%] -mt-8 md:ml-[120px]">
-                  {grandTotal < 200000 && (
-                    <span className="bg-[#CEFAD0] rounded-sm text-[#006400] px-3 py-1 text-xs">
-                      Pay On Delivery Available
-                    </span>
-                  )}
-                </div>
-
-                <hr className="border-t border-gray-300 my-4 shadow-sm -mx-4" />
                 {/* Checkout Button */}
-                <div className="flex justify-end w-full items-center">
-                  <PaystackButton
-                    className={`bg-[#FACA15] font-medium text-black text-sm py-2 px-5 rounded-md hover:text-yellow-400 hover:bg-black duration-300 focus:outline-none focus:ring-offset-2 w-full md:w-auto ${
-                      !isFormValid ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
-                    {...componentProps}
-                    disabled={!isFormValid}
-                  />
-                </div>
+                <PaystackButton
+                  className={`bg-brand-accent font-medium text-black text-sm py-2 px-5 rounded-md hover:bg-brand-dark hover:text-brand-light duration-300 w-full ${
+                    !isFormValid ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  {...componentProps}
+                  disabled={!isFormValid}
+                />
               </form>
             </div>
 
-            <div className="h-full bg-white rounded-lg p-4 w-full max-w-xs border border-gray-300">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-medium text-gray-800">
-                  DELIVERY & RETURNS
-                </h2>
-              </div>
-              <hr className="border-t border-gray-300 my-4 shadow-sm -mx-4" />
-
+            {/* Delivery & Returns */}
+            <div className="h-full bg-white rounded-2xl p-6 w-full max-w-xs border border-gray-200 shadow-md">
+              <h2 className="text-lg font-medium text-gray-800 mb-4">
+                DELIVERY & RETURNS
+              </h2>
               <p className="text-sm text-gray-600 mb-4">
                 The BEST products, delivered faster. Now PAY on DELIVERY, Cash
                 or Bank Transfer Anywhere, No problem!
               </p>
-              <hr className="border-t border-gray-300 my-4 shadow-sm -mx-4" />
-              {/* Delivery Section */}
+
               <div className="flex items-start mb-3">
                 <FiTruck className="text-gray-600 mr-3 text-4xl" />
-                {/* Delivery Icon */}
                 <div>
-                  <h2 className="text-l font-semibold text-black mb-2">
+                  <h2 className="font-semibold text-black mb-2">
                     Door Delivery
                   </h2>
-                  <div className="text-sm text-gray-600">
-                    <p className="block">
-                      Delivery Fees within Lagos
-                      <span className="text-black font-semibold"> ₦ 3,500</span>
-                    </p>
-                    <p className="block">
-                      while Delivery outside Lagos
-                      <span className="text-black font-semibold">
-                        {" "}
-                        is on Request
-                      </span>
-                    </p>
-                  </div>
+                  <p className="text-sm text-gray-600">
+                    Lagos Delivery Fee: ₦ 3,500 <br />
+                    Outside Lagos: On Request
+                  </p>
                 </div>
               </div>
-              {/* Pickup Section */}
+
               <div className="flex items-start mb-3">
                 <GoGift className="text-gray-600 mr-3 text-4xl" />
-                {/* Pickup Icon */}
                 <div>
-                  <h2 className="text-l font-semibold text-black mb-2">
+                  <h2 className="font-semibold text-black mb-2">
                     Pickup Station
                   </h2>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-gray-600">
                     Ready for pickup immediately after payment.
                   </p>
                 </div>
               </div>
-              <hr className="border-t border-gray-300 my-4 shadow-sm -mx-4" />
 
-              {/* Return Section */}
               <div className="flex items-start mb-3">
-                {/* Return Icon */}
                 <GiReturnArrow className="text-gray-600 mr-3 text-6xl" />
-
                 <div>
-                  <h2 className="text-l font-semibold text-black mb-2">
+                  <h2 className="font-semibold text-black mb-2">
                     Return Policy
                   </h2>
-                  <p className="text-sm text-gray-600">
-                    <CollapsibleText
-                      text="Return within 7 days for ALL eligible items. When returning an item for any reason, you must do so in the exact condition you received it from us, with its original packaging and all tags and labels attached."
-                      slicedAt={80}
-                    />
-                  </p>
+                  <CollapsibleText
+                    text="Return within 7 days for ALL eligible items. Must be in exact condition received, with packaging and all tags/labels."
+                    slicedAt={80}
+                  />
                 </div>
               </div>
             </div>
           </div>
-          {/* END OF CHECKOUT */}
         </div>
       ) : (
         <motion.div
@@ -515,14 +405,12 @@ const Cart = () => {
           transition={{ duration: 0.4 }}
           className="flex flex-col md:flex-row justify-center items-center gap-4 pb-20"
         >
-          <div>
-            <Image
-              src={emptyCart}
-              alt="emptyCart"
-              className="w-80 rounded-lg p-4 mx-auto"
-            />
-          </div>
-          <div className="max-w-[500px] p-4 py-8 bg-white flex flex-col gap-4 items-center rounded-md shadow-lg">
+          <Image
+            src={emptyCart}
+            alt="emptyCart"
+            className="w-80 rounded-xl p-4 mx-auto"
+          />
+          <div className="max-w-[500px] p-6 bg-white flex flex-col gap-4 items-center rounded-2xl shadow-lg">
             <h1 className="text-xl font-bold uppercase">
               Your Cart feels lonely.
             </h1>
@@ -532,7 +420,7 @@ const Cart = () => {
             </p>
             <Link
               href={"/shop"}
-              className="bg-primary rounded-md cursor-pointer hover:bg-yellow-400 active:bg-yellow-500 px-8 py-2 font-semibold text-lg text-gray-200 hover:text-white duration-300"
+              className="bg-brand-accent rounded-md hover:bg-brand-dark hover:text-brand-light px-8 py-2 font-semibold text-lg duration-300"
             >
               Continue Shopping
             </Link>

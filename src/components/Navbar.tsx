@@ -37,37 +37,40 @@ const Navbar = () => {
   return (
     <div className="flex flex-col w-full">
       {/* Top nav */}
-      <div className="w-full bg-[#FFF354] border-b border-b-gray-100 md:block hidden">
+      <div className="w-full bg-brand-accent border-b border-b-gray-100 md:block hidden">
         <ul className="flex items-center justify-end text-xs text-white font-light px-16 h-8 bg-[#1B4351]">
           <li className="border-r-white-400 px-3 -mr-4 font-semibold">
             Contact us:
           </li>
           <li className="border-r border-r-white-400 px-3 font-normal font-montserrat">
-            <a href="tel:+2347066755185" className="hover:text-[#FFF354]">
+            <a href="tel:+2347066755185" className="hover:text-brand-accent">
               (+234) 706-675-5185
             </a>
           </li>
           <li className="border-r border-r-white-400 px-3 font-normal font-montserrat">
-            <a href="mailto:shop@mojoyicl.com" className="hover:text-[#FFF354]">
+            <a
+              href="mailto:shop@mojoyicl.com"
+              className="hover:text- to-brand-accent"
+            >
               shop@mojoyicl.com
             </a>
           </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
+          <li className="pl-5 text-[17px] hover:text-brand-accent cursor-pointer">
             <Link href="https://www.facebook.com/mojoyitechhub">
               <FaFacebookF />
             </Link>
           </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
+          <li className="pl-5 text-[17px] hover:text- to-brand-accent cursor-pointer">
             <Link href="https://www.tiktok.com/@mojoytechhub">
               <FaTiktok />
             </Link>
           </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
+          <li className="pl-5 text-[17px] to-brand-accent cursor-pointer">
             <Link href="https://twitter.com/mojoytechhub">
               <FaX />
             </Link>
           </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
+          <li className="pl-5 text-[17px] hover:brand[] cursor-pointer">
             <Link href="https://www.instagram.com/mojoytechhub/">
               <FaInstagram />
             </Link>
@@ -126,7 +129,7 @@ const Navbar = () => {
             <Link
               href={item.link}
               key={item.link}
-              className={`flex items-center text-xs uppercase font-medium hover:font-medium text-[#333] hover:text-yellow-400 hover:underline underline-offset-8 decoration-[#FACA15] decoration-[1px] ${
+              className={`flex items-center text-xs uppercase font-medium hover:font-medium text-[#333] hover:text-brand-accent hover:underline underline-offset-8 decoration-brand-accent decoration-[1px] ${
                 pathname === item.link &&
                 "text-gray-800 hover:text-gray-800 underline font-medium cursor-default"
               }`}
