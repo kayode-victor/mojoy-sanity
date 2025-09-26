@@ -54,10 +54,10 @@ const ContactPage = () => {
                 <div className="flex mb-6 gap-4 items-center justify-center">
                   <FaPhone className="text-xl" />
                   <a
-                    href="tel:+2348023636583"
+                    href="tel:+2347066755158"
                     className="text-md text-gray-700 hover:text-brand-accent"
                   >
-                    (+234)802-363-6583
+                    (+234)706-675-5158
                   </a>
                 </div>
 
