@@ -12,18 +12,27 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Missing token" }, { status: 400 });
     }
 
+    interface TokenData {
+      _id: string;
+      user: {
+        _id: string;
+        email: string;
+      };
+      expiresAt: string;
+    }
+
     const tokenQuery = `*[_type == "passwordResetToken" && token == $token][0] {
-      _id,
-      user->{
-        _id,
-        email
-      },
-      expiresAt
-    }`;
-    const tokenData = await client.fetch(tokenQuery, { token } as Record<
-      string,
-      string
-    >);
+  _id,
+  user->{
+    _id,
+    email
+  },
+  expiresAt
+}`;
+
+    const tokenData = await client.fetch<TokenData | null>(tokenQuery, {
+      token,
+    } as Record<string, string>);
 
     if (!tokenData) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });
@@ -72,7 +81,10 @@ export async function POST(request: Request) {
       },
       expiresAt
     }`;
-    const tokenData = await client.fetch(tokenQuery, { token });
+    const tokenData = await client.fetch(tokenQuery, { token } as Record<
+      string,
+      string
+    >);
 
     if (!tokenData) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });

@@ -60,7 +60,9 @@ const ProudctInfo = ({ product }: Props) => {
         <span className="mx-2 font-bold text-gray-950">
           {typeof product?.brand === "object" && product?.brand !== null
             ? product.brand.title
-            : product?.brand}
+            : typeof product?.brand === "string"
+              ? product?.brand
+              : ""}
         </span>
         <div>
           <strong>ID: </strong>
