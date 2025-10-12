@@ -12,6 +12,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const pathname = usePathname();
+
   const navBarlist = [
     { title: "Home", link: "/" },
     { title: "Our Shop", link: "/shop" },
@@ -25,132 +26,157 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const handleScroll = () => {
-    const isTop = window.scrollY < 5;
-    setIsScrolled(!isTop);
-  };
+
+  const handleScroll = () => setIsScrolled(window.scrollY > 10);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div className="flex flex-col w-full">
-      {/*Top nav*/}
-      <div className="w-full bg-[#FAFAFA] border-b border-b-gray-100 md:block hidden">
-        <ul className="flex items-center justify-end text-xs text-[#333333] font-light px-16 h-8 bg-[#FAFAFA]">
-          <li className="border-r-gray-400 px-3 -mr-4 font-semibold">
-            Contact us:
-          </li>
-         <li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
-  <a href="tel:+2348023636583" className="hover:text-blue-500">
-    (+234) 802-363-6583
-  </a>
-</li>
-<li className="border-r border-r-gray-400 px-3 font-normal font-montserrat">
-  <a href="mailto:shop@mojoyicl.com" className="hover:text-blue-500">
-    shop@mojoyicl.com
-  </a>
-</li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://www.facebook.com/mojoyitechhub">
+    <div className="flex flex-col w-full font-raleway">
+      {/* ==================== TOP BAR ==================== */}
+      <div className="w-full bg-[#1B4351] text-white text-xs border-b border-[#CD661A]/30">
+        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-end px-4 md:px-8 py-2 gap-2 md:gap-6">
+          {/* Contact Info (Right aligned) */}
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5 text-center md:text-right">
+            <a
+              href="tel:+2347066755185"
+              className="text-white hover:text-[#FFF354] transition-colors font-medium"
+            >
+              (+234)706-675-5185
+            </a>
+            <span className="hidden md:inline text-[#FFF354]/50">|</span>
+            <a
+              href="mailto:shop@mojoyicl.com"
+              className="text-white hover:text-[#FFF354] transition-colors font-medium"
+            >
+              shop@mojoyicl.com
+            </a>
+            <span className="hidden md:inline text-[#FFF354]/50">|</span>
+            <span className="text-[#FFF354] font-semibold">Follow Us:</span>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4 text-[15px]">
+            <Link
+              href="https://www.facebook.com/mojoyitechhub"
+              className="text-white hover:text-[#FFF354] transition-colors"
+            >
               <FaFacebookF />
             </Link>
-          </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://www.tiktok.com/@mojoytechhub">
-            <FaTiktok />
-           </Link>
-          </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://twitter.com/mojoytechhub">
+            <Link
+              href="https://www.tiktok.com/@mojoytechhub"
+              className="text-white hover:text-[#FFF354] transition-colors"
+            >
+              <FaTiktok />
+            </Link>
+            <Link
+              href="https://twitter.com/mojoytechhub"
+              className="text-white hover:text-[#FFF354] transition-colors"
+            >
               <FaX />
             </Link>
-          </li>
-          <li className="pl-5 text-[17px] hover:text-yellow-500 cursor-pointer">
-            <Link href="https://www.instagram.com/mojoytechhub/">
+            <Link
+              href="https://www.instagram.com/mojoytechhub/"
+              className="text-white hover:text-[#FFF354] transition-colors"
+            >
               <FaInstagram />
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
-      {/*Main nav*/}
+
+      {/* ==================== MAIN NAV ==================== */}
       <div
-        className={`sticky-header flex flex-col ${
-          isScrolled ? "scrolled" : ""
+        className={`sticky-header flex flex-col transition-all ${
+          isScrolled ? "scrolled shadow-md" : ""
         }`}
       >
-        {/*Logo Nav*/}
-        <div className="w-full lg:h-20 h-16 bg-white border-b-2 border-b-gray-100">
-          <nav className="flex items-center justify-between gap-2 h-full max-w-screen-xl mx-auto px-4 md:px-16">
-            {/*icons*/}
+        <div className="w-full bg-white border-b border-gray-200">
+          <nav className="flex items-center justify-between h-16 lg:h-24 max-w-screen-xl mx-auto px-4 md:px-16 mt-2">
+            {/* Left: Mobile Icon */}
             <div className="lg:hidden block">
               <NavIcon />
             </div>
-            {/*Logo*/}
-            <Link href={"/"}>
-              <Image src={logo} alt="logo" className="w-24" />
+
+            {/* Center: Logo */}
+            <Link href="/" className="flex items-center">
+              <Image src={logo} alt="Mojoy Logo" className="w-28" priority />
             </Link>
+
+            {/* Center: Search */}
             <div className="hidden lg:flex">
               <Search />
             </div>
-            {/*Account*/}
+
+            {/* Right: Icons */}
             <div className="hidden lg:flex">
               <NavIcon />
             </div>
-            {/*menu btn*/}
+
+            {/* Menu Button (Mobile) */}
             <div className="inline-flex md:hidden">
               <HiMenuAlt2
                 onClick={toggleMenu}
-                className="cursor-pointer w-8 h-6"
+                className="cursor-pointer w-8 h-6 text-[#1B4351]"
               />
             </div>
           </nav>
         </div>
-        <div className="h-14 flex lg:hidden items-center justify-center py-2 w-full">
+
+        {/* Mobile Search */}
+        <div className="h-14 flex lg:hidden items-center justify-center py-2 w-full bg-[#F8F8F8]">
           <Search />
         </div>
       </div>
 
-      {/*Menu list*/}
-      <div className="w-full h-10 bg-[#F3F4F6] font-montserrat md:block hidden">
+      {/* ==================== MENU LINKS ==================== */}
+      <div className="hidden md:block w-full h-12 bg-white font-raleway shadow-sm">
         <div className="flex gap-10 h-full items-center justify-center mx-auto">
           {navBarlist.map((item) => (
             <Link
-              href={item?.link}
-              key={item?.link}
-              className={`flex items-center text-xs uppercase font-medium hover:font-medium text-[#333] hover:text-yellow-400 hover:underline underline-offset-8 decoration-[#FACA15] decoration-[1px] ${
-                pathname === item?.link &&
-                "text-gray-800 hover:text-gray-800 underline font-medium cursor-default"
-              }`}
+              key={item.link}
+              href={item.link}
+              className={`flex items-center text-sm uppercase tracking-wide font-semibold transition-colors duration-300
+                ${
+                  pathname === item.link
+                    ? "text-[#CD661A] underline underline-offset-8 decoration-[#FFF354]"
+                    : "text-[#1B4351] hover:text-[#CD661A]"
+                }`}
             >
-              {item?.title}
+              {item.title}
             </Link>
           ))}
         </div>
       </div>
-      {/* Mobile menu */}
+
+      {/* ==================== MOBILE MENU ==================== */}
       <div
-        className={`lg:hidden fixed top-0 right-0 h-full bg-white z-50 transition-all duration-500 ${
+        className={`lg:hidden fixed top-0 right-0 h-full bg-white z-50 transition-all duration-500 ease-in-out ${
           isMenuOpen ? "w-3/5" : "w-0"
         }`}
-        onClick={() => setIsMenuOpen(false)}
       >
-        <div className="bg-tertiary border-l-4 border-rainbow w-full h-full flex flex-col justify-start p-4">
+        <div className="bg-[#1B4351] text-white w-full h-full flex flex-col justify-start p-6 rounded-l-2xl shadow-lg">
           <IoCloseOutline
-            className="text-3xl my-4 cursor-pointer"
+            className="text-3xl mb-8 cursor-pointer self-end hover:text-[#FFF354]"
             onClick={toggleMenu}
           />
-          <ul className="mt-8 text-center">
+          <ul className="space-y-6 text-center">
             {navBarlist.map((item) => (
-              <li className="my-8" key={item?.title}>
-                <Link href={item?.link}> {item.title}</Link>
+              <li key={item.title}>
+                <Link
+                  href={item.link}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-lg hover:text-[#FFF354] transition-all"
+                >
+                  {item.title}
+                </Link>
               </li>
             ))}
-            <li></li>
           </ul>
         </div>
       </div>

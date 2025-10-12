@@ -126,7 +126,7 @@ const HomePage = async () => {
       <HomeBanner />
       <Services />
       <Category categories={categories} />
-      
+
       <BestSeller products={bestSellerProducts} />
       <Bottombanner />
       <Logos />
