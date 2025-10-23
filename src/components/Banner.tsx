@@ -80,12 +80,7 @@ const Banner = ({ banners }: any) => {
               <div className="flex flex-col gap-5 justify-center items-center">
                 <p className="text-white text-md md:text-lg text-shadow-4xl text-center font-montserrat font-medium max-w-lg md:max-w-2xl mx-auto px-1 md:px-0">
                   <span>
-                    <span className="font-bold">MOJOY </span>
-                    is a leading IT retail and distribution organization
-                    dedicated to delivering premium IT products at competitive
-                    prices. Our vision is to become Africa&#39;s preferred ICT
-                    solutions provider, prioritizing our customers&#39; business
-                    achievements.
+                    <span className="font-bold"> </span>
                   </span>
                 </p>
                 <Link href="/shop">
