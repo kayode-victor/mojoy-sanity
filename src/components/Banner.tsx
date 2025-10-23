@@ -71,11 +71,11 @@ const Banner = ({ banners }: any) => {
               alt="banner image"
               width={1500}
               height={1500}
-              className="w-full h-[400px] object-cover md:mb-28"
+              className="w-full h-[420px] object-cover md:mb-28"
             />
             <div
-              className="w-full h-[400px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"
-              style={{ backgroundColor: "hsla(240, 50.60%, 15.90%, 0.67)" }}
+              className="w-full h-[500px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"
+              style={{ backgroundColor: "hsla" }}
             >
               <div className="flex flex-col gap-5 justify-center items-center">
                 <p className="text-white text-md md:text-lg text-shadow-4xl text-center font-montserrat font-medium max-w-lg md:max-w-2xl mx-auto px-1 md:px-0">
