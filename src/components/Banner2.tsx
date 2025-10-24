@@ -44,7 +44,7 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
                 i === dotActive
                   ? {
                       width: "25px",
-                      color: "#262626",
+                      color: "",
                       borderRight: "3px #262626 solid",
                       cursor: "pointer",
                       fontSize: "12px",
@@ -77,12 +77,9 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
               height={1500}
               className="w-full h-[300px] object-cover md:mb-28"
             />
-            <div
-              className="w-full h-[300px] absolute top-0 flex justify-center items-center"
-              style={{ backgroundColor: "hsla(240, 50.60%, 15.90%, 0.67)" }}
-            >
+            <div className="w-full h-[300px] absolute top-0 flex justify-center items-center">
               <div className="flex flex-col gap-5 justify-center items-center">
-                <p className="text-white text-md md:text-5xl text-shadow-4xl text-center font-montserrat font-medium max-w-lg md:max-w-2xl mx-auto font-semibold ">
+                <p className="text-white text-md md:text-5xl text-shadow-4xl text-center font-montserrat max-w-lg md:max-w-2xl mx-auto font-semibold ">
                   {bannerText}
                 </p>
               </div>

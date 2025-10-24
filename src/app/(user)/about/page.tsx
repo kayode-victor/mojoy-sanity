@@ -17,7 +17,7 @@ const AboutPage = () => {
   return (
     <Container className="font-raleway text-[#ffffff] overflow">
       {/* ===== HERO ===== */}
-      <section className="bg-[#CD661A] text-[#ffffff] py-20 text-center">
+      <section className="bg-[#CD661A] text-[#FFF345] py-20 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

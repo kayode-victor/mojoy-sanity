@@ -105,7 +105,14 @@ const Navbar = () => {
 
             {/* Center: Logo */}
             <Link href="/" className="flex items-center">
-              <Image src={logo} alt="Mojoy Logo" className="w-28" priority />
+              <Image
+                src={logo}
+                alt="Mojoy Logo"
+                width={200}
+                height={40}
+                className="object-contain"
+                priority
+              />
             </Link>
 
             {/* Center: Search */}
