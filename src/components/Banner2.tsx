@@ -73,7 +73,7 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
             <Image
               src={urlFor(item.image).url()}
               alt="banner image"
-              width={1500}
+              width={1900}
               height={1500}
               className="w-full h-[300px] object-cover md:mb-28"
             />
