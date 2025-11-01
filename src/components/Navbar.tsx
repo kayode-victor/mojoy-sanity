@@ -40,7 +40,7 @@ const Navbar = () => {
     <div className="flex flex-col w-full font-raleway">
       {/* ==================== TOP BAR ==================== */}
       <div className="w-full bg-[#1B4351] text-white text-xs border-b border-[#CD661A]/30">
-        <div className="w-full px-4 md:px-8 flex flex-col md:flex-row items-center justify-end py-2 gap-2 md:gap-6">
+        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-end px-4 md:px-8 py-2 gap-2 md:gap-6">
           {/* Contact Info (Right aligned) */}
           <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5 text-center md:text-right">
             <a
@@ -97,7 +97,7 @@ const Navbar = () => {
         }`}
       >
         <div className="w-full bg-white border-b border-gray-200">
-          <nav className="flex items-center justify-between h-16 lg:h-24 w-full px-4 md:px-16 mt-2">
+          <nav className="flex items-center justify-between h-16 lg:h-24 max-w-screen-xl mx-auto px-4 md:px-16 mt-2">
             {/* Left: Mobile Icon */}
             <div className="lg:hidden block">
               <NavIcon />
@@ -105,14 +105,7 @@ const Navbar = () => {
 
             {/* Center: Logo */}
             <Link href="/" className="flex items-center">
-              <Image
-                src={logo}
-                alt="Mojoy Logo"
-                width={150}
-                height={34}
-                className="object-contain"
-                priority
-              />
+              <Image src={logo} alt="Mojoy Logo" className="w-28" priority />
             </Link>
 
             {/* Center: Search */}
@@ -142,8 +135,8 @@ const Navbar = () => {
       </div>
 
       {/* ==================== MENU LINKS ==================== */}
-      <div className="hidden md:block w-full h-12 bg-white font-raleway">
-        <div className="flex gap-10 h-full items-center justify-start px-4 md:px-16">
+      <div className="hidden md:block w-full h-12 bg-white font-raleway shadow-sm">
+        <div className="flex gap-10 h-full items-center justify-center mx-auto">
           {navBarlist.map((item) => (
             <Link
               key={item.link}
