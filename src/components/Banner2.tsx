@@ -74,10 +74,10 @@ const Banner2 = ({ banners = [], bannerText }: Banner2Props) => {
               src={urlFor(item.image).url()}
               alt="banner image"
               width={1900}
-              height={1500}
-              className="w-full h-[300px] object-cover md:mb-28"
+              height={300}
+              className="w-full h-auto object-cover md:mb-28"
             />
-            <div className="w-full h-[300px] absolute top-0 flex justify-center items-center">
+            <div className="w-full h-auto absolute top-0 flex justify-center items-center">
               <div className="flex flex-col gap-5 justify-center items-center">
                 <p className="text-white text-md md:text-5xl text-shadow-4xl text-center font-montserrat max-w-lg md:max-w-2xl mx-auto font-semibold ">
                   {bannerText}
