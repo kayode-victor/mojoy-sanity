@@ -71,7 +71,7 @@ const Banner = ({ banners }: any) => {
               alt="banner image"
               width={1500}
               height={1500}
-              className="w-full h-[420px] object-cover md:mb-28"
+              className="w-full h-auto object-cover md:mb-28"
             />
             <div
               className="w-full h-[420px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"
