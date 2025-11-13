@@ -62,7 +62,7 @@ const Banner = ({ banners }: any) => {
     ],
   };
   return (
-    <div className="bg-red-200 h-[420px] mb-28">
+    <div className="bg-red-200 h-[400px] mb-28">
       <Slider {...settings}>
         {banners?.map((item: any) => (
           <div className="relative" key={item?._id}>
@@ -71,10 +71,10 @@ const Banner = ({ banners }: any) => {
               alt="banner image"
               width={1900}
               height={1500}
-              className="w-full h-auto object-left"
+              className="w-full h-[400px] object-cover md:mb-28"
             />
             <div
-              className="w-full h-[420px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"
+              className="w-full h-[400px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"
               style={{ backgroundColor: "hsla" }}
             >
               <div className="flex flex-col gap-5 justify-center items-center">
@@ -84,7 +84,7 @@ const Banner = ({ banners }: any) => {
                   </span>
                 </p>
                 <Link href="/shop">
-                  <button className="bg-[#000000] font-medium text-[#FFF345] text-sm py-3 px-6 rounded-md hover:text-yellow-400 hover:bg-black duration-300 focus:outline-none focus:ring-offset-2 w-auto">
+                  <button className="bg-[#181817] font-medium text-[#FFF345] text-sm py-3 px-6 rounded-md hover:text-yellow-400 hover:bg-black duration-300 focus:outline-none focus:ring-offset-2 w-auto">
                     Shop Now
                   </button>
                 </Link>
