@@ -4,7 +4,7 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import "slick-carousel/slick/slick.css";
 import Footer from "../../components/Footer";
-import NavBanner from "@/components/NavBanner";
+// import NavBanner from "@/components/NavBanner";
 import Layout from "@/components/Layout";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -48,7 +48,7 @@ export default function RootLayout({
         </Head>
         <body className="font-poppins bg-white text-gray-900 antialiased">
           <Layout>
-            <NavBanner />
+            {/* <NavBanner /> */}
             <Navbar />
             {children}
             <Footer />

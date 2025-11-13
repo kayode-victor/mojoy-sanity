@@ -62,16 +62,16 @@ const Banner = ({ banners }: any) => {
     ],
   };
   return (
-    <div className="bg-red-200 h-[400px] mb-28">
+    <div className="bg-red-200 h-[420px] mb-28">
       <Slider {...settings}>
         {banners?.map((item: any) => (
           <div className="relative" key={item?._id}>
             <Image
               src={urlFor(item.image).url()}
               alt="banner image"
-              width={1500}
+              width={1900}
               height={1500}
-              className="w-full h-auto object-cover md:mb-28"
+              className="w-full h-auto object-left"
             />
             <div
               className="w-full h-[420px] absolute top-0 flex justify-center items-center transition-all duration-800 ease-in-out"

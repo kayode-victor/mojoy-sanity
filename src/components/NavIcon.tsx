@@ -20,13 +20,13 @@ const NavIcon = () => {
     <div className="flex gap-8 lg:gap-6">
       <Link href={"/cart"} className="relative group">
         <div className="flex justify-between items-center md:w-[62px]">
-          <FaOpencart className="cursor-pointer text-2xl text-gray-800 text-[#FACA15]" />
+          <FaOpencart className="cursor-pointer text-2xl text-gray-800 text-[#FFF345]" />
           {productData && productData.length > 0 && (
-            <p className="absolute bottom-5 left-5 bg-[#FACA15] text-[#3633112] text-xs w-4 h-4 rounded-full flex justify-center items-center">
+            <p className="absolute bottom-5 left-5 bg-[#FFF345] text-[#3633112] text-xs w-4 h-4 rounded-full flex justify-center items-center">
               {productData.length}
             </p>
           )}
-          <div className="text-sm hover:text-[#FACA15] -mb-3 cursor-pointer md:block hidden">
+          <div className="text-sm hover:text-[#FFF345] -mb-3 cursor-pointer md:block hidden">
             Cart
           </div>
         </div>
@@ -77,8 +77,8 @@ const NavIcon = () => {
             href="/auth/signin"
             className="flex items-center justify-between md:w-[87px] mt-1"
           >
-            <FaRegUser className="cursor-pointer text-xl text-gray-800 hover:text-[#FACA15]" />
-            <span className="ml-2 hidden text-sm text-gray-800 hover:text-[#FACA15] md:block mt-0 md:mt-1">
+            <FaRegUser className="cursor-pointer text-xl text-gray-800 hover:text-[#FFF345]" />
+            <span className="ml-2 hidden text-sm text-gray-800 hover:text-[#FFF345] md:block mt-0 md:mt-1">
               Account
             </span>
           </Link>
