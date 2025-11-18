@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import "../../styles/globals.css";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import "slick-carousel/slick/slick.css";
-import Footer from "../../components/Footer";
+import Footer from "@/components/Footer";
 // import NavBanner from "@/components/NavBanner";
 import Layout from "@/components/Layout";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
-  title: "Mojoy Tech Hub: New HP Dell Lenovo Asus Laptops Nigeria",
+  title: "Asus Laptops Nigeria - VivoBook, TUF Gaming, ZenBook | Mojoy",
   description:
-    "Buy HP, Dell, Lenovo, Asus laptops and tech products in Nigeria with fast delivery and secure payments.",
+    "Buy original Asus laptops in Lagos: VivoBook slim, TUF gaming, ZenBook premium, ROG gaming. Authentic Asus products Nigeria. Order today.",
   favicon: "./favicon.ico",
   robots: "index, follow",
 };

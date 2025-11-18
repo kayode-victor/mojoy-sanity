@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import "../../styles/globals.css";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import "slick-carousel/slick/slick.css";
-import Footer from "../../components/Footer";
+import Footer from "@/components/Footer";
 // import NavBanner from "@/components/NavBanner";
 import Layout from "@/components/Layout";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
-  title: "Mojoy Tech Hub: New HP Dell Lenovo Asus Laptops Nigeria",
+  title:
+    "About Mojoy Tech Hub - Leading IT Retailer and Wholesaler Since 2001.",
   description:
-    "Buy HP, Dell, Lenovo, Asus laptops and tech products in Nigeria with fast delivery and secure payments.",
+    "Mojoy Tech Hub: Nigeria's trusted IT retailer. Premium laptops, computers & tech accessories at competitive prices. Fast Delivery. One-Year Warranty. Shop Now.",
   favicon: "./favicon.ico",
   robots: "index, follow",
 };

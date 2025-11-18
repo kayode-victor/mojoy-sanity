@@ -1,7 +1,7 @@
 import Banner from "@/components/Banner";
 import BestSeller from "@/components/BestSeller";
 import TopDeal from "@/components/TopDeal";
-import Bottombanner from "@/components/Bottombanner";
+// import Bottombanner from "@/components/Bottombanner";
 import Category from "@/components/Category";
 import HomeBanner from "@/components/Homebanner";
 import Logos from "@/components/Logos";
@@ -116,19 +116,21 @@ const HomePage = async () => {
   const bestSellerProducts = await client.fetch(bestSellerQuery);
   const categories = await client.fetch(categoryQuery);
   const brandsWithProducts = await client.fetch(productsQuery);
+  const today = new Date();
+  const showBlackFriday = today.getMonth() === 11; // November
 
   return (
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner banners={banners} />
+
       <NewArrival products={newArrivalProducts} />
       <TopDeal products={topDealProducts} />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
       <Services />
       <Category categories={categories} />
-
       <BestSeller products={bestSellerProducts} />
-      <Bottombanner />
+      {/* <Bottombanner /> */}
       <Logos />
     </main>
   );
