@@ -96,7 +96,12 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <div className="flex items-center gap-2">
-                <Image src={logo} alt="Mojoy Logo" className="w-24 md:w-28" />
+                <Image
+                  src={logo}
+                  alt="Mojoy Logo"
+                  className="w-24 md:w-28"
+                  priority
+                />
                 <span className="bg-[#FFF354] text-[#1B4351] text-[9px] md:text-xs font-bold px-2 py-[3px] rounded-md uppercase">
                   Black Friday
                 </span>

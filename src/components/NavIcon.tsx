@@ -20,7 +20,7 @@ const NavIcon = () => {
     <div className="flex gap-8 lg:gap-6">
       <Link href={"/cart"} className="relative group">
         <div className="flex justify-between items-center md:w-[62px]">
-          <FaOpencart className="cursor-pointer text-2xl text-gray-800 text-[#FFF345]" />
+          <FaOpencart className="cursor-pointer text-2xl text-[#FFF345]" />
           {productData && productData.length > 0 && (
             <p className="absolute bottom-5 left-5 bg-[#FFF345] text-[#3633112] text-xs w-4 h-4 rounded-full flex justify-center items-center">
               {productData.length}

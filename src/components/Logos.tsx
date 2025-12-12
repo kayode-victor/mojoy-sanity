@@ -50,6 +50,7 @@ const Logos = () => {
                 height={200} // increased from 150 to 200
                 alt={logo.alt}
                 className="object-contain w-[200px] h-[200px] hover:scale-90" // increased from w-24 h-24 (96px) to 200px
+                priority
               />
             </div>
           ))}
