@@ -45,7 +45,7 @@ export default function PromoBanner() {
                                 <div className="ml-2 text-sm font-extrabold text-[#1B4351]">₦10,000 OFF + Free Bag</div>
                             </div>
 
-                            {/* CTA Button using Link */}
+                            {/* C.T.A Button using Link */}
 
                         </div>
 
@@ -113,7 +113,7 @@ export default function PromoBanner() {
                             </div>
 
                             <div className="text-right text-xs text-gray-600">
-                                Ends: 11 Jan 2026
+                                Ends: 11 Jan 2026.
                             </div>
                         </div>
                     </div>
