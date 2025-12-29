@@ -113,7 +113,7 @@ export default function PromoBanner() {
                             </div>
 
                             <div className="text-right text-xs text-gray-600">
-                                Ends: 31 Dec 2025
+                                Ends: 11 Jan 2026
                             </div>
                         </div>
                     </div>
