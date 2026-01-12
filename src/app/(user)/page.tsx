@@ -10,9 +10,6 @@ import Brands from "@/components/Brands";
 import { client } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
 
-// Promo Banner
-import PromoBanner from "@/components/Mojoy_Laptop_Promo_Banner";
-
 export const revalidate = 10;
 
 const bannerQuery = groq`*[_type == 'banner']{ image, _id } | order(_createdAt asc)`;
@@ -57,12 +54,10 @@ const HomePage = async () => {
   return (
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner banners={banners} />
-      <PromoBanner />
       <NewArrival products={newArrivalProducts} />
       <TopDeal products={topDealProducts} />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
-      <PromoBanner />
       <Services />
       <Category categories={categories} />
       <BestSeller products={bestSellerProducts} />
