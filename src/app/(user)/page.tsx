@@ -3,6 +3,7 @@ import BestSeller from "@/components/BestSeller";
 import TopDeal from "@/components/TopDeal";
 import Category from "@/components/Category";
 import HomeBanner from "@/components/Homebanner";
+import RecentlyViewedSection from "@/components/RecentlyViewedSection";
 import Logos from "@/components/Logos";
 import NewArrival from "@/components/NewArrival";
 import Services from "@/components/Services";
@@ -56,6 +57,7 @@ const HomePage = async () => {
       <Banner banners={banners} />
       <NewArrival products={newArrivalProducts} />
       <TopDeal products={topDealProducts} />
+      <RecentlyViewedSection />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
       <Services />
