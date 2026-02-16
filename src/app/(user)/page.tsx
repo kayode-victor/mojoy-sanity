@@ -55,9 +55,9 @@ const HomePage = async () => {
   return (
     <main className="text-sm min-h-screen overflow-hidden">
       <Banner banners={banners} />
+      <RecentlyViewedSection />
       <NewArrival products={newArrivalProducts} />
       <TopDeal products={topDealProducts} />
-      <RecentlyViewedSection />
       <Brands brands={brandsWithProducts} />
       <HomeBanner />
       <Services />
